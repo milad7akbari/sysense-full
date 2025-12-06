@@ -40,7 +40,7 @@ export default function Home() {
                             ورود
                         </Button>
                     </Link>
-                    <Link href="/profile">
+                    <Link href="/dashboard">
                         <Button className="rounded-full px-6 bg-foreground text-background hover:bg-foreground/90 shadow-lg shadow-primary/5 transition-all duration-200 hover:scale-105 active:scale-95">
                             شروع کنید
                         </Button>

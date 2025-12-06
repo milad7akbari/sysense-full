@@ -8,9 +8,6 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 export async function sendOtpAction(prevState: any, formData: FormData) {
     const phoneNumber = formData.get("phoneNumber") as string;
 
-    // شبیه‌سازی پردازش
-    await delay(1500);
-
     // اعتبارسنجی ساده سمت سرور
     if (!phoneNumber || phoneNumber.length < 10) {
         return {
