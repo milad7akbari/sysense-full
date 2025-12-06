@@ -8,30 +8,42 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { usePathname } from "next/navigation"; // 1. اضافه کردن این هوک برای تشخیص صفحه فعلی
 
 export function DashboardHeader() {
+    const pathname = usePathname(); // 2. گرفتن آدرس صفحه فعلی
+
+    // تابعی برای تعیین استایل دکمه (فعال یا غیرفعال)
+    const getButtonStyles = (path: string) => {
+        const isActive = pathname === path;
+        return `gap-2 transition-colors ${
+            isActive
+                ? "bg-slate-100 text-primary font-bold shadow-sm" // استایل حالت فعال
+                : "text-slate-500 font-medium hover:bg-slate-100 hover:text-slate-900" // استایل حالت عادی
+        }`;
+    };
+
     return (
-        // z-30 ensures it stays below the Sidebar (z-40) but above page content
         <header className="h-20 px-6 lg:px-8 flex items-center justify-between bg-white/80 backdrop-blur-xl border-b border-slate-200/60 sticky top-0 z-30 transition-all gap-4">
 
             {/* --- LEFT SECTION: Navigation Links --- */}
-            {/* On Desktop, these serve as quick access to main feeds */}
-            <div className="hidden md:flex items-center gap-1">
-                <Button
-                    variant="ghost"
-                    className="font-bold text-slate-700 hover:bg-slate-100 hover:text-primary transition-colors gap-2"
-                >
-                    <Home className="w-5 h-5" />
-                    <span>خانه</span>
-                </Button>
+            <div className="hidden md:flex items-center gap-2">
 
-                <Button
-                    variant="ghost"
-                    className="font-medium text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition-colors gap-2"
-                >
-                    <Compass className="w-5 h-5" />
-                    <span>اکسپلور</span>
-                </Button>
+                {/* دکمه خانه */}
+                <Link href="/profile/home">
+                    <Button variant="ghost" className={getButtonStyles('/profile/home')}>
+                        <Home className="w-5 h-5" />
+                        <span>خانه</span>
+                    </Button>
+                </Link>
+
+                {/* دکمه اکسپلور (لینک شده به صفحه‌ای که ساختید) */}
+                <Link href="/explore">
+                    <Button variant="ghost" className={getButtonStyles('/explore')}>
+                        <Compass className="w-5 h-5" />
+                        <span>اکسپلور</span>
+                    </Button>
+                </Link>
             </div>
 
 
@@ -50,6 +62,7 @@ export function DashboardHeader() {
                         <MessageCircle className="w-6 h-6" />
                     </Button>
                 </Link>
+
                 {/* User Profile Summary */}
                 <div className="flex items-center gap-3 pr-2 border-r border-slate-200/60 pl-2">
                     <div className="text-left hidden lg:block leading-tight">
@@ -62,7 +75,6 @@ export function DashboardHeader() {
                     {/* Avatar Ring */}
                     <div className="w-10 h-10 rounded-full p-[2px] bg-gradient-to-tr from-primary via-purple-400 to-pink-400 shadow-md cursor-pointer hover:scale-105 transition-transform">
                         <div className="w-full h-full rounded-full bg-white flex items-center justify-center overflow-hidden">
-                            {/* Placeholder for User Avatar */}
                             <span className="font-black text-sm text-transparent bg-clip-text bg-gradient-to-br from-primary to-purple-600">
                                 US
                             </span>
