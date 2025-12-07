@@ -33,7 +33,7 @@ export function NavItem({ href, icon: Icon, label }: NavItemProps) {
             />
             <span>{label}</span>
 
-            {/* نشانگر فعال بودن (اختیاری برای زیبایی) */}
+            
             {isActive && (
                 <div className="mr-auto w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
             )}

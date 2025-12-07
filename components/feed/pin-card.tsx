@@ -22,7 +22,7 @@ export function PinCard({ item, priority = false }: PinCardProps) {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            {/* تصویر اصلی */}
+            
             <div className={cn("relative w-full bg-slate-200", !item.imageUrl && heightClass)}>
                 <img
                     src={item.imageUrl}
@@ -36,14 +36,14 @@ export function PinCard({ item, priority = false }: PinCardProps) {
 
             <div className="absolute inset-0 flex flex-col justify-between p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
 
-                {/* هدر کارت: دکمه ذخیره */}
+                
                 <div className="flex justify-end">
                     <button className="bg-red-600 text-white px-4 py-2 rounded-full font-bold text-sm hover:bg-red-700 transition-colors shadow-sm">
                         ذخیره
                     </button>
                 </div>
 
-                {/* فوتر کارت: اکشن‌ها */}
+                
                 <div className="flex justify-between items-center">
                     <div className="flex gap-2">
                         <button className="bg-white/90 backdrop-blur-sm p-2 rounded-full hover:bg-white text-slate-800 transition-colors shadow-sm">
@@ -65,7 +65,7 @@ export function PinCard({ item, priority = false }: PinCardProps) {
                 </div>
             </div>
 
-            {/* اطلاعات زیر کارت (همیشه نمایش داده شود یا در هاور؟ پینترست معمولا زیر کارت است) */}
+            
             {item.title && (
                 <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 via-black/40 to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                     <p className="text-xs font-medium line-clamp-1 truncate">{item.title}</p>

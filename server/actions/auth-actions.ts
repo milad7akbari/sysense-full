@@ -1,6 +1,6 @@
 'use server'
 
-// شبیه‌سازی تاخیر شبکه
+
 import {redirect} from "next/navigation";
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
@@ -8,7 +8,7 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 export async function sendOtpAction(prevState: any, formData: FormData) {
     const phoneNumber = formData.get("phoneNumber") as string;
 
-    // اعتبارسنجی ساده سمت سرور
+    
     if (!phoneNumber || phoneNumber.length < 10) {
         return {
             success: false,
@@ -32,7 +32,7 @@ export async function verifyOtpAction(prevState: any, formData: FormData) {
 
     await delay(1500);
 
-    // شبیه‌سازی بررسی کد (مثلا کد 12345 همیشه صحیح است)
+    
     if (otp !== "12345") {
         return {
             success: false,
@@ -41,7 +41,7 @@ export async function verifyOtpAction(prevState: any, formData: FormData) {
         };
     }
 
-    // در اینجا معمولاً کاربر را لاگین می‌کنید و ریدایرکت می‌کنید
+    
     redirect('/profile');
 
     return {

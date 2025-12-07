@@ -7,14 +7,14 @@ export default function ProfileLayout({
     children: React.ReactNode;
 }) {
     return (
-        // تغییر: استفاده از bg-slate-50 برای رنگی گرم‌تر و استانداردتر نسبت به سفید مطلق
+        
         <div className="min-h-screen bg-slate-50/90 font-sans text-slate-900" dir="rtl">
 
-            {/* Sidebar - Fixed Right Position */}
+            
             <Sidebar />
 
-            {/* Main Content Area */}
-            {/* تغییر: lg:pr-72 با عرض سایدبار هماهنگ است. transition برای نرمی تغییر سایز */}
+            
+            
             <div className="lg:pr-72 min-h-screen flex flex-col transition-all duration-300 ease-in-out">
 
                 <DashboardHeader />

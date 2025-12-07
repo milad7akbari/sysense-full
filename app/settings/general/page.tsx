@@ -15,7 +15,7 @@ export default function GeneralSettingsPage() {
             <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
                 <div className="p-6 md:p-8 space-y-8">
 
-                    {/* بخش تصویر پروفایل */}
+                    
                     <div className="flex items-center gap-6 pb-8 border-b border-slate-50">
                         <div className="relative group cursor-pointer">
                             <div className="w-20 h-20 rounded-2xl bg-purple-100 flex items-center justify-center text-purple-600 text-2xl font-bold border-2 border-white shadow-lg shadow-purple-100">
@@ -35,7 +35,7 @@ export default function GeneralSettingsPage() {
                         </div>
                     </div>
 
-                    {/* فرم اطلاعات فردی */}
+                    
                     <section className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
@@ -61,7 +61,7 @@ export default function GeneralSettingsPage() {
                                     شماره تلفن ثبت‌شده
                                     <span className="text-[10px] text-amber-500 bg-amber-50 px-1.5 py-0.5 rounded mr-auto">(غیرقابل تغییر)</span>
                                 </label>
-                                {/* فیلد شماره تلفن غیرفعال و فقط خواندنی */}
+                                
                                 <Input
                                     defaultValue="09123456789"
                                     className="bg-slate-100 border-slate-200 text-slate-500 cursor-not-allowed opacity-80 font-mono text-left"

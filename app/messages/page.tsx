@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
-// داده‌های نمونه
+
 const conversations = [
     { id: 1, name: "پشتیبانی سای‌سنس", lastMsg: "سلام، چطور می‌توانم کمکتان کنم؟", time: "۱۰:۳۰", unread: 2, avatar: "S", online: true },
     { id: 2, name: "علی رضایی", lastMsg: "فایل‌ها رو فرستادم.", time: "دیروز", unread: 0, avatar: "A", online: false },
@@ -20,7 +20,7 @@ export default function MessagesPage() {
     return (
         <div className="bg-white rounded-3xl border border-slate-200 shadow-sm h-full flex overflow-hidden">
 
-            {/* لیست گفتگوها (سایدبار راست) */}
+            
             <div className="w-full md:w-80 lg:w-96 border-l border-slate-100 flex flex-col bg-slate-50/50">
                 <div className="p-4 border-b border-slate-100">
                     <h2 className="font-extrabold text-lg mb-4 text-slate-800">پیام‌ها</h2>
@@ -71,10 +71,10 @@ export default function MessagesPage() {
                 </div>
             </div>
 
-            {/* پنجره چت (بخش اصلی) */}
+            
             <div className="flex-1 flex flex-col bg-white relative hidden md:flex">
 
-                {/* هدر چت */}
+                
                 <div className="h-16 px-6 border-b border-slate-100 flex items-center justify-between bg-white/80 backdrop-blur-sm sticky top-0 z-10">
                     <div className="flex items-center gap-3">
                         <div className="relative">
@@ -95,9 +95,9 @@ export default function MessagesPage() {
                     </div>
                 </div>
 
-                {/* فضای پیام‌ها */}
+                
                 <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-[url('/grid.svg')] bg-[length:30px_30px] bg-fixed">
-                    {/* پیام دریافتی نمونه */}
+                    
                     <div className="flex items-end gap-2">
                         <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-xs font-bold text-slate-500 mb-1">
                             {selectedChat.avatar}
@@ -108,7 +108,7 @@ export default function MessagesPage() {
                         </div>
                     </div>
 
-                    {/* پیام ارسالی نمونه */}
+                    
                     <div className="flex items-end gap-2 flex-row-reverse">
                         <div className="bg-purple-600 text-white px-4 py-3 rounded-2xl rounded-bl-none max-w-[70%] shadow-md shadow-purple-200">
                             <p className="text-sm leading-relaxed">سلام، خوشحال میشم کمکتون کنم. کدام بخش مد نظرتون هست؟</p>
@@ -117,7 +117,7 @@ export default function MessagesPage() {
                     </div>
                 </div>
 
-                {/* ورودی پیام */}
+                
                 <div className="p-4 border-t border-slate-100 bg-white">
                     <div className="flex items-end gap-2 bg-slate-50 p-2 rounded-2xl border border-slate-200 focus-within:border-purple-300 focus-within:ring-4 focus-within:ring-purple-500/10 transition-all">
                         <Button variant="ghost" size="icon" className="text-slate-400 hover:text-slate-600 h-10 w-10 shrink-0">

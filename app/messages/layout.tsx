@@ -8,7 +8,7 @@ export default function MessagesLayout({
 }) {
     return (
         <div className="h-screen bg-slate-50/90 font-sans text-slate-900 overflow-hidden flex flex-col" dir="rtl">
-            {/* در صفحه پیام‌ها، اسکرول اصلی صفحه را حذف می‌کنیم تا پنل چت اسکرول شود */}
+            
             <Sidebar />
             <div className="lg:pr-72 flex-1 flex flex-col h-full transition-all duration-300 ease-in-out">
                 <DashboardHeader />

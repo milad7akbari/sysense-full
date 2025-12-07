@@ -18,9 +18,9 @@ import {
 import { NavItem } from "./nav-item";
 import Link from "next/link";
 
-// تعریف آیتم‌های منو با ساختار مناسب برای یک اپلیکیشن محتوا-محور (مثل پینترست)
+
 const navItems = [
-    // --- بخش محتوای شخصی ---
+    
     {
         label: "پروفایل من",
         href: "/profile",
@@ -51,10 +51,10 @@ const navItems = [
 
 export function Sidebar() {
     return (
-        // z-40 برای قرارگیری روی سایر عناصر، fixed right-0 برای زبان فارسی (RTL)
+        
         <aside className="hidden lg:flex flex-col w-72 h-full bg-white border-l border-slate-200 fixed right-0 top-0 z-40 shadow-[0_0_15px_rgba(0,0,0,0.03)] transition-all duration-300">
 
-            {/* Logo Header */}
+            
             <div className="h-24 flex items-center px-8">
                 <Link href="/" className="flex items-center gap-3 group select-none">
                     <div className="w-10 h-10 bg-primary text-primary-foreground rounded-2xl flex items-center justify-center shadow-lg shadow-primary/25 transition-transform group-hover:scale-110 duration-300">
@@ -69,10 +69,10 @@ export function Sidebar() {
                 </Link>
             </div>
 
-            {/* Navigation Items */}
+            
             <nav className="flex-1 px-4 py-2 space-y-1 overflow-y-auto custom-scrollbar">
 
-                {/* بخش اول: کتابخانه من */}
+                
                 <div className="text-[11px] font-bold text-slate-400/80 uppercase tracking-wider mb-2 px-4 mt-4">
                     کتابخانه من
                 </div>
@@ -82,7 +82,7 @@ export function Sidebar() {
 
                 <div className="my-4 border-t border-slate-100 mx-4" />
 
-                {/* بخش دوم: مدیریت */}
+                
                 <div className="text-[11px] font-bold text-slate-400/80 uppercase tracking-wider mb-2 px-4">
                     مدیریت حساب
                 </div>
@@ -91,7 +91,7 @@ export function Sidebar() {
                 ))}
             </nav>
 
-            {/* Footer / User Badge & Logout */}
+            
             <div className="p-5 mt-auto">
                 <div className="bg-slate-50/80 backdrop-blur-sm rounded-2xl p-4 border border-slate-100/80 hover:border-slate-200 transition-colors">
                     <div className="flex items-center gap-3 mb-4">

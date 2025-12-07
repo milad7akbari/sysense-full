@@ -5,7 +5,7 @@ import { Search } from "lucide-react";
 import { MasonryGrid } from "@/components/feed/masonry-grid";
 import { FeedItem } from "@/types/feed";
 
-// داده‌های نمونه برای اکسپلور
+
 const EXPLORE_ITEMS: FeedItem[] = [
     { id: 1, imageUrl: "/1.jpeg", title: "استایل مینیمال", user: { name: "Sara" }, height: 'tall' },
     { id: 2, imageUrl: "/2.jpeg", title: "تکنولوژی روز", user: { name: "TechMag" }, height: 'short' },
@@ -38,7 +38,7 @@ export default function ExplorePage() {
                     </div>
                 </div>
 
-                {/* Categories Scroll */}
+                
                 <div className="flex gap-2 overflow-x-auto no-scrollbar px-4 md:px-8 pb-2">
                     {CATEGORIES.map(cat => (
                         <button
@@ -56,7 +56,7 @@ export default function ExplorePage() {
                 </div>
             </div>
 
-            {/* Masonry Layout */}
+            
             <div className="px-2 md:px-4">
                 <MasonryGrid items={EXPLORE_ITEMS} />
             </div>

@@ -62,7 +62,7 @@ export default function NotificationsPage() {
 
     return (
         <div className="space-y-6">
-            {/* هدر صفحه */}
+            
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-2xl font-extrabold text-slate-800 flex items-center gap-2">
@@ -87,7 +87,7 @@ export default function NotificationsPage() {
                 </div>
             </div>
 
-            {/* تب‌ها */}
+            
             <div className="flex p-1 bg-slate-100/80 rounded-xl w-fit">
                 <button
                     onClick={() => setFilter('all')}
@@ -112,7 +112,7 @@ export default function NotificationsPage() {
                 </button>
             </div>
 
-            {/* لیست اعلان‌ها */}
+            
             <div className="space-y-3">
                 {filteredNotifications.length > 0 ? (
                     filteredNotifications.map((item) => (
@@ -125,12 +125,12 @@ export default function NotificationsPage() {
                                     : "bg-purple-50/30 border-purple-100 shadow-sm"
                             )}
                         >
-                            {/* آیکون */}
+                            
                             <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center shrink-0", item.color)}>
                                 <item.icon className="w-6 h-6" />
                             </div>
 
-                            {/* محتوا */}
+                            
                             <div className="flex-1 min-w-0 pt-1">
                                 <div className="flex justify-between items-start">
                                     <h4 className={cn("text-sm font-bold truncate", item.read ? "text-slate-700" : "text-slate-900")}>
@@ -146,7 +146,7 @@ export default function NotificationsPage() {
                                 </p>
                             </div>
 
-                            {/* نشانگر وضعیت */}
+                            
                             {!item.read && (
                                 <div className="w-2 h-2 rounded-full bg-purple-500 mt-3 shrink-0" title="جدید" />
                             )}

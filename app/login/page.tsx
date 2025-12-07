@@ -22,13 +22,13 @@ export default function LoginPage() {
     const [clientError, setClientError] = useState("");
     const [timer, setTimer] = useState(0);
 
-    // استفاده از هوک جدید React 19 برای مدیریت فرم
+    
     const [state, formAction, isPending] = useActionState(
         step === "PHONE" ? sendOtpAction : verifyOtpAction,
         initialState
     );
 
-    // تغییر مرحله در صورت موفقیت
+    
     useEffect(() => {
         if (step === "PHONE" && state?.success && state.phoneNumber) {
             setStep("OTP");
@@ -37,7 +37,7 @@ export default function LoginPage() {
         }
     }, [state, step]);
 
-    // تایمر معکوس
+    
     useEffect(() => {
         let interval: NodeJS.Timeout;
         if (timer > 0) {
@@ -55,7 +55,7 @@ export default function LoginPage() {
     };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        // اعتبارسنجی سمت کلاینت قبل از ارسال به سرور اکشن
+        
         if (step === "PHONE") {
             const formData = new FormData(e.currentTarget);
             const phone = formData.get("phoneNumber") as string;
@@ -73,27 +73,27 @@ export default function LoginPage() {
             }
         }
         setClientError("");
-        // اگر همه چیز درست بود، اکشن فرم به طور خودکار اجرا می‌شود
+        
     };
 
     return (
         <div className="flex min-h-screen w-full font-sans relative overflow-hidden bg-background">
 
-            {/* دکمه بازگشت */}
+            
             <Link href="/" className="absolute top-6 right-6 z-50 flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                 <ArrowRight className="w-4 h-4" />
                 بازگشت به خانه
             </Link>
 
-            {/* بخش فرم (سمت راست در دسکتاپ) */}
+            
             <div className="flex flex-col justify-center items-center w-full lg:w-1/2 p-6 sm:p-10 bg-white dark:bg-black transition-colors duration-300 z-10 relative">
 
-                {/* افکت‌های پس‌زمینه برای فرم */}
+                
                 <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 lg:hidden"></div>
 
                 <div className="w-full max-w-[400px] animate-in fade-in slide-in-from-bottom-4 duration-700">
 
-                    {/* لوگو و هدر */}
+                    
                     <div className="text-center mb-10">
                         <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-purple-50 dark:bg-purple-900/20 text-purple-600 mb-6 shadow-sm">
                             <ShieldCheck className="w-8 h-8" />
@@ -112,7 +112,7 @@ export default function LoginPage() {
                         </div>
                     </div>
 
-                    {/* فرم */}
+                    
                     <form action={formAction} onSubmit={handleSubmit} className="space-y-6">
                         {step === "PHONE" ? (
                             <div className="space-y-2 group">
@@ -169,7 +169,7 @@ export default function LoginPage() {
                             </div>
                         )}
 
-                        {/* نمایش خطا */}
+                        
                         {(clientError || state?.error) && (
                             <div className="p-3 rounded-lg bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-400 text-sm text-center border border-red-100 dark:border-red-900/50 animate-in zoom-in-95 duration-300 flex items-center justify-center gap-2">
                                 <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
@@ -218,10 +218,10 @@ export default function LoginPage() {
                 </div>
             </div>
 
-            {/* بخش تصویر (سمت چپ در دسکتاپ) */}
+            
             <div className="hidden lg:flex w-1/2 bg-[#f8f9fa] dark:bg-zinc-950 relative overflow-hidden items-center justify-center border-r border-black/5 dark:border-white/5">
 
-                {/* المان‌های پس‌زمینه مشابه صفحه اصلی */}
+                
                 <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-[0.03]" style={{ backgroundSize: '40px 40px' }}></div>
                 <div className="absolute top-[-20%] right-[-10%] w-[40vw] h-[40vw] bg-purple-300/30 dark:bg-purple-900/20 rounded-full blur-[100px] animate-pulse" />
                 <div className="absolute bottom-[-20%] left-[-10%] w-[30vw] h-[30vw] bg-blue-200/30 dark:bg-blue-900/20 rounded-full blur-[100px]" />
@@ -229,7 +229,7 @@ export default function LoginPage() {
                 <div className="relative z-20 text-center px-16 max-w-xl animate-in slide-in-from-left-8 duration-1000 delay-100">
                     <div className="bg-white/40 dark:bg-white/5 backdrop-blur-xl p-8 rounded-3xl border border-white/50 dark:border-white/10 shadow-2xl mb-8 inline-block transform rotate-[-2deg] hover:rotate-0 transition-transform duration-500">
                         <Image
-                            src="/window.svg" // استفاده از یکی از فایل‌های موجود به عنوان placeholder
+                            src="/window.svg" 
                             alt="Logo"
                             width={120}
                             height={120}

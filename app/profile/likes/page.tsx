@@ -68,7 +68,7 @@ export default function LikesPage() {
                         key={item.id}
                         className="group bg-white rounded-3xl p-3 border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-slate-200/60 transition-all duration-500 flex flex-col"
                     >
-                        {/* Image Container */}
+                        
                         <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-slate-100 mb-4">
                             <Image
                                 src={item.image}
@@ -78,7 +78,7 @@ export default function LikesPage() {
                                 className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                             />
 
-                            {/* Overlay Actions */}
+                            
                             <div className="absolute top-3 right-3 flex flex-col gap-2 translate-x-10 group-hover:translate-x-0 transition-transform duration-300">
                                 <button
                                     onClick={() => handleRemove(item.id)}
