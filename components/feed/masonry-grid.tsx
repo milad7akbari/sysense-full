@@ -1,32 +1,20 @@
-'use client';
-
-import { FeedItem } from "@/types/feed";
 import { PinCard } from "./pin-card";
+import { FeedItem } from "@/types/feed";
 
 interface MasonryGridProps {
     items: FeedItem[];
 }
 
 export function MasonryGrid({ items }: MasonryGridProps) {
-    if (!items || items.length === 0) {
-        return (
-            <div className="w-full h-64 flex items-center justify-center text-slate-400">
-                محتوایی یافت نشد.
-            </div>
-        );
-    }
-
     return (
-        
-        
-        <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-4 mx-auto space-y-4 pb-20 px-2">
-            {items.map((item, index) => (
-                <PinCard
-                    key={item.id}
-                    item={item}
-                    priority={index < 4} 
-                />
-            ))}
+        <div className="w-full mx-auto">
+            <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-4">
+                {items.map((item) => (
+                    <div key={item.id} className="break-inside-avoid mb-4">
+                        <PinCard data={item} />
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }

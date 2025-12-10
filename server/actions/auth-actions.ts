@@ -1,14 +1,13 @@
 'use server'
 
-
-import {redirect} from "next/navigation";
+import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export async function sendOtpAction(prevState: any, formData: FormData) {
     const phoneNumber = formData.get("phoneNumber") as string;
 
-    
     if (!phoneNumber || phoneNumber.length < 10) {
         return {
             success: false,
@@ -16,9 +15,7 @@ export async function sendOtpAction(prevState: any, formData: FormData) {
             phoneNumber: ""
         };
     }
-
     console.log(`Sending OTP to ${phoneNumber}`);
-
     return {
         success: true,
         error: "",
@@ -32,7 +29,6 @@ export async function verifyOtpAction(prevState: any, formData: FormData) {
 
     await delay(1500);
 
-    
     if (otp !== "12345") {
         return {
             success: false,
@@ -41,12 +37,12 @@ export async function verifyOtpAction(prevState: any, formData: FormData) {
         };
     }
 
-    
-    redirect('/profile');
+    const cookieStore = await cookies();
+    cookieStore.set('session', 'true', {
+        httpOnly: true,
+        path: '/',
+        maxAge: 60 * 60 * 24 * 7 // یک هفته
+    });
 
-    return {
-        success: true,
-        error: "",
-        phoneNumber: phoneNumber
-    };
+    redirect('/');
 }

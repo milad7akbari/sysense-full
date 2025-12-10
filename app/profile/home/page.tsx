@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from "react";
 import { MasonryGrid } from "@/components/feed/masonry-grid";
 import { FeedItem } from "@/types/feed";
 
@@ -16,36 +15,9 @@ const FEED_ITEMS: FeedItem[] = [
 ];
 
 export default function HomePage() {
-    const [activeTab, setActiveTab] = useState<"foryou" | "following">("foryou");
-
     return (
         <div className="max-w-[1600px] mx-auto min-h-screen">
 
-            
-            <div className="sticky top-[80px] z-20 bg-white/95 backdrop-blur-sm py-4 mb-2 flex justify-center gap-6">
-                <button
-                    onClick={() => setActiveTab("foryou")}
-                    className={`text-base font-bold px-4 py-2 rounded-full transition-all ${
-                        activeTab === 'foryou'
-                            ? 'bg-slate-900 text-white shadow-md'
-                            : 'text-slate-600 hover:bg-slate-100'
-                    }`}
-                >
-                    برای شما
-                </button>
-                <button
-                    onClick={() => setActiveTab("following")}
-                    className={`text-base font-bold px-4 py-2 rounded-full transition-all ${
-                        activeTab === 'following'
-                            ? 'bg-slate-900 text-white shadow-md'
-                            : 'text-slate-600 hover:bg-slate-100'
-                    }`}
-                >
-                    دنبال‌می‌کنید
-                </button>
-            </div>
-
-            
             <div className="px-2 md:px-4 pt-4">
                 <MasonryGrid items={FEED_ITEMS} />
             </div>

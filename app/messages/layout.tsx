@@ -1,5 +1,5 @@
 import { Sidebar } from "@/components/dashboard/sidebar";
-import { DashboardHeader } from "@/components/dashboard/header";
+import { Header } from "@/components/dashboard/header";
 
 export default function MessagesLayout({
                                            children,
@@ -11,7 +11,7 @@ export default function MessagesLayout({
             
             <Sidebar />
             <div className="lg:pr-72 flex-1 flex flex-col h-full transition-all duration-300 ease-in-out">
-                <DashboardHeader />
+                <Header />
                 <main className="flex-1 h-[calc(100vh-80px)] p-4 lg:p-6 animate-in fade-in zoom-in-95 duration-500">
                     {children}
                 </main>

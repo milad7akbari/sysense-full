@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Vazirmatn } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const vazir = Vazirmatn({
-    subsets: ["arabic", "latin"],
-    variable: "--font-vazir",
+const vazir = localFont({
+    src: "./fonts/Vazirmatn[wght].woff2",
     display: "swap",
+    variable: "--font-vazir",
 });
 
 export const metadata: Metadata = {
@@ -15,9 +15,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
                                        children,
-                                   }: Readonly<{
+                                   }: {
     children: React.ReactNode;
-}>) {
+}) {
     return (
         <html lang="fa" dir="rtl">
         <body className={`${vazir.variable} antialiased font-sans`}>
