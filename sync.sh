@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DEST="$HOME/public/sy-test"
+DEST="$HOME/Public/sy-test"
 
 mkdir -p "$DEST"
 

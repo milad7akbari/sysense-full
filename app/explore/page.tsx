@@ -1,33 +1,41 @@
-import { Sidebar } from "@/components/dashboard/sidebar";
-import { Header } from "@/components/dashboard/header";
 import { MasonryGrid } from "@/components/feed/masonry-grid";
 import { FeedItem } from "@/types/feed";
 
-const MOCK_PINS: FeedItem[] = Array.from({ length: 20 }).map((_, i) => ({
-    id: i,
-    title: `ایده استایل ${i + 1}`,
-    imageUrl: `/${(i % 2) + 1}.jpeg`,
-    user: {
-        name: `کاربر ${i + 1}`,
-        avatar: `/${(i % 2) + 1}.jpeg`
-    },
-    likes: Math.floor(Math.random() * 100)
-}));
+// --- Real images from /public ---
+const IMAGES = [
+    "1.jpeg",
+    "2.jpeg",
+    "attractive-stylish-blonde-woman-jeans-oversize-jacket-walking-against-wall-street.jpg",
+    "balancing-1868051_1920.jpg",
+    "fashion-9464875_1920.jpg",
+    "man-9182458_1280.jpg",
+    "portrait-young-happy-woman-studio.jpg",
+    "woman-3083453_1280.jpg",
+    "woman-716592_1280.jpg",
+    "woman-8839452_1920.jpg",
+    "woman-9554464_1920.jpg"
+];
+
+const MOCK_PINS: FeedItem[] = Array.from({ length: 20 }).map((_, i) => {
+    const image = IMAGES[i % IMAGES.length];
+    const avatar = IMAGES[(i + 3) % IMAGES.length]; // ensures avatar differs from image
+
+    return {
+        id: i + 1,
+        title: `ایده استایل ${i + 1}`,
+        imageUrl: `/${image}`,
+        user: {
+            name: `کاربر ${i + 1}`,
+            avatar: `/${avatar}`
+        },
+        likes: Math.floor(Math.random() * 100)
+    };
+});
 
 export default function ExplorePage() {
     return (
-        <div className="min-h-screen bg-gray-50">
-            <Header />
-
-            <div className="flex pt-20">
-                <Sidebar />
-
-                <main className="flex-1 md:ml-64 p-4 transition-all duration-300">
-                    <div className="container mx-auto max-w-[1600px]">
-                        <MasonryGrid items={MOCK_PINS} />
-                    </div>
-                </main>
-            </div>
+        <div className="w-full h-full animate-in fade-in zoom-in-95 duration-500">
+            <MasonryGrid items={MOCK_PINS} />
         </div>
     );
 }

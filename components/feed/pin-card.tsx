@@ -1,5 +1,5 @@
 import { FeedItem } from "@/types/feed";
-import { Heart, Download } from "lucide-react"; // پیشنهاد: نصب lucide-react برای آیکون‌ها
+import { Heart, Download } from "lucide-react";
 
 export function PinCard({ data }: { data: FeedItem }) {
     return (
