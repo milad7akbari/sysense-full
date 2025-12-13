@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Bell, Heart, MessageCircle, UserPlus, Star, CheckCheck, Clock, Settings } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const initialNotifications = [
@@ -61,8 +60,8 @@ export default function NotificationsPage() {
         : notifications.filter(n => !n.read);
 
     return (
-        <div className="space-y-6">
-            
+        <div className="space-y-6 font-sans">
+
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-2xl font-extrabold text-slate-800 flex items-center gap-2">
@@ -72,27 +71,25 @@ export default function NotificationsPage() {
                     <p className="text-sm text-slate-400 mt-1">آخرین فعالیت‌ها و پیام‌های سیستم</p>
                 </div>
                 <div className="flex items-center gap-2">
-                    <Button
-                        variant="outline"
-                        size="sm"
+                    <button
                         onClick={markAllAsRead}
-                        className="text-xs h-9 bg-white hover:bg-slate-50 border-slate-200"
+                        className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 h-9 px-3"
                     >
                         <CheckCheck className="w-4 h-4 mr-2" />
-                        خوانden همه
-                    </Button>
-                    <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full">
+                        خواندن همه
+                    </button>
+                    <button className="inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-slate-100 h-9 w-9">
                         <Settings className="w-5 h-5 text-slate-400" />
-                    </Button>
+                    </button>
                 </div>
             </div>
 
-            
+
             <div className="flex p-1 bg-slate-100/80 rounded-xl w-fit">
                 <button
                     onClick={() => setFilter('all')}
                     className={cn(
-                        "px-4 py-1.5 rounded-lg text-sm font-bold transition-all",
+                        "px-4 py-1.5 rounded-lg text-sm font-bold transition-all focus:outline-none",
                         filter === 'all' ? "bg-white text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-700"
                     )}
                 >
@@ -101,7 +98,7 @@ export default function NotificationsPage() {
                 <button
                     onClick={() => setFilter('unread')}
                     className={cn(
-                        "px-4 py-1.5 rounded-lg text-sm font-bold transition-all flex items-center gap-2",
+                        "px-4 py-1.5 rounded-lg text-sm font-bold transition-all flex items-center gap-2 focus:outline-none",
                         filter === 'unread' ? "bg-white text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-700"
                     )}
                 >
@@ -112,25 +109,25 @@ export default function NotificationsPage() {
                 </button>
             </div>
 
-            
+
             <div className="space-y-3">
                 {filteredNotifications.length > 0 ? (
                     filteredNotifications.map((item) => (
                         <div
                             key={item.id}
                             className={cn(
-                                "group flex items-start gap-4 p-4 rounded-2xl border transition-all duration-200 hover:shadow-md",
+                                "group flex items-start gap-4 p-4 rounded-2xl border transition-all duration-200 hover:shadow-md cursor-default",
                                 item.read
                                     ? "bg-white border-slate-100"
                                     : "bg-purple-50/30 border-purple-100 shadow-sm"
                             )}
                         >
-                            
+
                             <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center shrink-0", item.color)}>
                                 <item.icon className="w-6 h-6" />
                             </div>
 
-                            
+
                             <div className="flex-1 min-w-0 pt-1">
                                 <div className="flex justify-between items-start">
                                     <h4 className={cn("text-sm font-bold truncate", item.read ? "text-slate-700" : "text-slate-900")}>
@@ -146,7 +143,7 @@ export default function NotificationsPage() {
                                 </p>
                             </div>
 
-                            
+
                             {!item.read && (
                                 <div className="w-2 h-2 rounded-full bg-purple-500 mt-3 shrink-0" title="جدید" />
                             )}

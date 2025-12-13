@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { ArrowLeft, Sparkles, ScanFace, Shirt, TrendingUp } from "lucide-react";
 
 export default function LandingPage() {
+    const baseBtnClass = "inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
+
     return (
         <div dir="rtl" className="min-h-screen flex flex-col relative overflow-hidden font-sans bg-background text-foreground selection:bg-purple-500/20 selection:text-purple-900 dark:selection:text-purple-100">
 
@@ -35,14 +36,14 @@ export default function LandingPage() {
 
                 <div className="flex items-center gap-4">
                     <Link href="/login">
-                        <Button variant="ghost" className="font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors duration-200">
+                        <button className={`${baseBtnClass} rounded-md px-4 py-2 hover:bg-accent hover:text-accent-foreground font-medium text-muted-foreground hover:bg-muted/50 duration-200`}>
                             ورود
-                        </Button>
+                        </button>
                     </Link>
                     <Link href="/dashboard">
-                        <Button className="rounded-full px-6 bg-foreground text-background hover:bg-foreground/90 shadow-lg shadow-primary/5 transition-all duration-200 hover:scale-105 active:scale-95">
+                        <button className={`${baseBtnClass} rounded-full px-6 py-2 bg-foreground text-background hover:bg-foreground/90 shadow-lg shadow-primary/5 duration-200 hover:scale-105 active:scale-95`}>
                             شروع کنید
-                        </Button>
+                        </button>
                     </Link>
                 </div>
             </header>
@@ -73,15 +74,15 @@ export default function LandingPage() {
 
                 <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto animate-in fade-in slide-in-from-bottom-7 duration-1000 delay-300">
                     <Link href="/profile" className="w-full sm:w-auto">
-                        <Button size="lg" className="w-full sm:w-auto text-lg h-14 px-10 rounded-full bg-foreground text-background hover:bg-foreground/90 transition-all duration-200 shadow-xl hover:shadow-2xl hover:-translate-y-1">
+                        <button className={`${baseBtnClass} w-full sm:w-auto text-lg h-14 px-10 rounded-full bg-foreground text-background hover:bg-foreground/90 transition-all duration-200 shadow-xl hover:shadow-2xl hover:-translate-y-1`}>
                             ورود به حساب کاربری
                             <ArrowLeft className="mr-2 w-5 h-5" />
-                        </Button>
+                        </button>
                     </Link>
                     <Link href="/about" className="w-full sm:w-auto">
-                        <Button size="lg" variant="outline" className="w-full sm:w-auto text-lg h-14 px-10 rounded-full bg-background/50 border-border text-foreground hover:bg-accent hover:text-accent-foreground backdrop-blur-sm transition-colors duration-200">
+                        <button className={`${baseBtnClass} border border-input bg-background w-full sm:w-auto text-lg h-14 px-10 rounded-full bg-background/50 border-border text-foreground hover:bg-accent hover:text-accent-foreground backdrop-blur-sm transition-colors duration-200`}>
                             بیشتر بدانید
-                        </Button>
+                        </button>
                     </Link>
                 </div>
 

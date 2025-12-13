@@ -1,19 +1,15 @@
 'use client'
 
-import { useState } from "react";
 import {
     Grid,
     Bookmark,
     Heart,
     ArrowUpRight,
-    Sparkles,
-    User,
-    Phone,
-    Mail,
-    Edit2,
-    Check,
-    X
+    Sparkles
 } from "lucide-react";
+import { StatCard } from "@/components/profile/stat-card";
+import { ActivityItem } from "@/components/profile/activity-item";
+import { UserInfoCard } from "@/components/profile/user-info-card";
 
 export default function Dashboard() {
     return (
@@ -117,164 +113,4 @@ export default function Dashboard() {
             </div>
         </div>
     );
-}
-
-function UserInfoCard() {
-    const [isEditing, setIsEditing] = useState(false);
-    const [userData, setUserData] = useState({
-        name: "سارا محمدی",
-        phone: "09123456789",
-        email: "sara.design@gmail.com"
-    });
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setUserData(prev => ({ ...prev, [name]: value }));
-    };
-
-    const handleSave = () => {
-        setIsEditing(false);
-    };
-
-    return (
-        <div className="bg-white rounded-3xl p-6 border border-slate-100 shadow-[0_5px_20px_rgba(0,0,0,0.02)] h-full flex flex-col">
-            <div className="flex items-center justify-between mb-6">
-                <div>
-                    <h3 className="font-bold text-xl text-slate-800">حساب کاربری</h3>
-                    <p className="text-xs text-slate-400 mt-1">اطلاعات شخصی شما</p>
-                </div>
-                <button
-                    onClick={() => !isEditing && setIsEditing(true)}
-                    disabled={isEditing}
-                    className={`p-2 rounded-xl transition-all ${isEditing ? 'opacity-50 cursor-default' : 'hover:bg-slate-100 text-slate-600'}`}
-                >
-                    <Edit2 className="w-5 h-5" />
-                </button>
-            </div>
-
-            <div className="space-y-6 flex-1">
-                <EditableField
-                    label="نام نمایشی"
-                    icon={<User className="w-4 h-4" />}
-                    name="name"
-                    value={userData.name}
-                    isEditing={isEditing}
-                    onChange={handleChange}
-                />
-                <EditableField
-                    label="شماره موبایل"
-                    icon={<Phone className="w-4 h-4" />}
-                    name="phone"
-                    value={userData.phone}
-                    isEditing={isEditing}
-                    onChange={handleChange}
-                    type="tel"
-                />
-                <EditableField
-                    label="آدرس ایمیل"
-                    icon={<Mail className="w-4 h-4" />}
-                    name="email"
-                    value={userData.email}
-                    isEditing={isEditing}
-                    onChange={handleChange}
-                    type="email"
-                />
-            </div>
-
-            {isEditing && (
-                <div className="flex gap-3 mt-8 pt-4 border-t border-slate-50 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                    <button
-                        onClick={() => setIsEditing(false)}
-                        className="flex-1 py-2.5 rounded-xl text-sm font-bold text-slate-500 hover:bg-slate-100 transition-colors flex items-center justify-center gap-2"
-                    >
-                        <X className="w-4 h-4" />
-                        انصراف
-                    </button>
-                    <button
-                        onClick={handleSave}
-                        className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white bg-slate-900 hover:bg-slate-800 transition-colors flex items-center justify-center gap-2 shadow-lg shadow-slate-200"
-                    >
-                        <Check className="w-4 h-4" />
-                        ذخیره تغییرات
-                    </button>
-                </div>
-            )}
-        </div>
-    );
-}
-
-function EditableField({ label, icon, value, isEditing, onChange, name, type = "text" }: any) {
-    return (
-        <div className="group">
-            <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                {icon}
-                {label}
-            </label>
-            {isEditing ? (
-                <div className="relative">
-                    <input
-                        type={type}
-                        name={name}
-                        value={value}
-                        onChange={onChange}
-                        className="w-full bg-slate-50 text-slate-800 font-bold text-sm px-4 py-3 rounded-xl border border-slate-200 focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 transition-all outline-none"
-                    />
-                </div>
-            ) : (
-                <div className="px-4 py-3 bg-white border border-transparent group-hover:bg-slate-50 group-hover:border-slate-100 rounded-xl transition-all duration-300">
-                    <p className="text-slate-800 font-bold text-sm dir-ltr text-right">{value}</p>
-                </div>
-            )}
-        </div>
-    );
-}
-
-function StatCard({ icon, label, value, subText, bg, trend }: {
-    icon: React.ReactNode,
-    label: string,
-    value: string,
-    subText: string,
-    bg: string,
-    trend: 'up' | 'neutral'
-}) {
-    return (
-        <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group cursor-pointer">
-            <div className="flex justify-between items-start mb-4">
-                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${bg} group-hover:scale-110 transition-transform duration-300`}>
-                    {icon}
-                </div>
-                {trend === 'up' && (
-                    <span className="flex items-center text-[10px] font-bold text-green-600 bg-green-50 px-2 py-1 rounded-full">
-                        +۱۲%
-                        <ArrowUpRight className="w-3 h-3 mr-0.5" />
-                    </span>
-                )}
-            </div>
-            <div>
-                <p className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-1">{label}</p>
-                <h4 className="text-3xl font-extrabold text-slate-800 font-sans mb-1">{value}</h4>
-                <p className="text-xs text-slate-400 font-medium">{subText}</p>
-            </div>
-        </div>
-    );
-}
-
-function ActivityItem({ icon, bg, title, desc, time, status, statusColor }: any) {
-    return (
-        <div className="flex items-center gap-4 p-4 rounded-2xl hover:bg-slate-50 transition-all duration-200 group cursor-pointer border border-transparent hover:border-slate-100">
-            <div className={`w-12 h-12 rounded-xl ${bg} flex items-center justify-center shrink-0 shadow-sm group-hover:shadow transition-all`}>
-                {icon}
-            </div>
-            <div className="flex-1 min-w-0">
-                <h4 className="font-bold text-slate-800 text-sm truncate">{title}</h4>
-                <p className="text-xs text-slate-500 mt-1 truncate">{desc}</p>
-            </div>
-            <div className="text-right hidden sm:block">
-                <span className={`text-[10px] font-bold px-2.5 py-1 rounded-lg block mb-1 text-center ${statusColor}`}>
-                    {status}
-                </span>
-                <span className="text-[10px] text-slate-400 font-medium">{time}</span>
-            </div>
-        </div>
-    )
 }

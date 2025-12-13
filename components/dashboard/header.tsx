@@ -90,11 +90,6 @@ export function Header() {
                 </div>
 
 
-                {/* =========================================
-                    محتوای اصلی هدر
-                   ========================================= */}
-
-                {/* --- بخش راست: لوگو و منو --- */}
                 <div className={`flex items-center gap-2 sm:gap-3 shrink-0 transition-opacity duration-200 ${isMobileSearchOpen ? 'opacity-0 md:opacity-100' : 'opacity-100'}`}>
                     <div className="lg:hidden">
                         <button className={`${iconButtonClass} w-10 h-10`}>
@@ -109,7 +104,7 @@ export function Header() {
                         </button>
                     </div>
 
-                    <Link href="/home" className="flex items-center gap-2 group">
+                    <Link href="/" className="flex items-center gap-2 group">
                         <div className="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-600 text-white shadow-md shadow-indigo-500/10 group-hover:scale-105 transition-transform duration-300">
                             <Sparkles className="w-5 h-5 md:w-5 md:h-5 text-white/90 fill-white/10" />
                         </div>
