@@ -1,12 +1,10 @@
 'use client'
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
-    Sparkles,
     SlidersHorizontal,
     RefreshCcw,
     Brain,
-    Zap,
     X,
     Check,
     ThumbsUp,

@@ -1,4 +1,4 @@
-import { Bell, Mail, MessageCircle, Smartphone } from "lucide-react";
+import { Bell, Mail } from "lucide-react";
 
 export default function NotificationsPage() {
     return (
@@ -33,8 +33,13 @@ export default function NotificationsPage() {
         </div>
     );
 }
-
-function NotificationGroup({ icon, title, description, children }: any) {
+interface NotificationGroupProps {
+    icon: React.ReactNode;
+    title: string;
+    description: string;
+    children: React.ReactNode;
+}
+function NotificationGroup({ icon, title, description, children }: NotificationGroupProps) {
     return (
         <div>
             <div className="flex items-center gap-3 mb-6">
@@ -52,8 +57,11 @@ function NotificationGroup({ icon, title, description, children }: any) {
         </div>
     )
 }
-
-function ToggleItem({ label, defaultChecked }: { label: string, defaultChecked?: boolean }) {
+interface ToggleItemProps {
+    label: string;
+    defaultChecked?: boolean;
+}
+function ToggleItem({ label, defaultChecked }: ToggleItemProps) {
     return (
         <div className="flex items-center justify-between group cursor-pointer">
             <span className="text-sm font-medium text-slate-600 group-hover:text-slate-900 transition-colors">{label}</span>

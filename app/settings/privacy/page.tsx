@@ -57,8 +57,14 @@ export default function PrivacyPage() {
         </div>
     );
 }
-
-function RadioItem({ name, label, desc, icon, checked }: any) {
+interface RadioItemProps {
+    name: string;
+    label: string;
+    desc: string;
+    icon: React.ReactNode;
+    checked?: boolean;
+}
+function RadioItem({ name, label, desc, icon, checked }: RadioItemProps) {
     return (
         <label className="flex items-start gap-4 p-4 rounded-2xl border border-transparent hover:border-slate-100 hover:bg-slate-50 cursor-pointer transition-all has-[:checked]:border-purple-200 has-[:checked]:bg-purple-50/50">
             <input type="radio" name={name} defaultChecked={checked} className="mt-1 w-4 h-4 accent-purple-600" />

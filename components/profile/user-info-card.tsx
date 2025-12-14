@@ -86,8 +86,16 @@ export function UserInfoCard() {
         </div>
     );
 }
-
-function EditableField({ label, icon, value, isEditing, onChange, name, type = "text" }: any) {
+interface EditableFieldProps {
+    label: string;
+    icon: React.ReactNode;
+    value: string;
+    isEditing: boolean;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    name: string;
+    type?: string;
+}
+function EditableField({ label, icon, value, isEditing, onChange, name, type = "text" }: EditableFieldProps) {
     return (
         <div className="group">
             <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">

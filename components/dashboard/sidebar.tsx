@@ -8,8 +8,6 @@ import {
     Layout,
     Bell,
     Settings,
-    Sparkles,
-    LogOut,
     PlusCircle,
     MessageCircle // <--- آیکون جدید اضافه شد
 } from "lucide-react";

@@ -28,18 +28,18 @@ const MOCK_IMAGES = [
 
 export default function BoardDetailPage({ params }: { params: Promise<{ id: string }> }) {
     // باز کردن پارامترها (در Next.js 15)
-    const { id } = use(params);
+    use(params);
 
     // تولید دیتای ساختگی مطابق با استاندارد FeedItem
-    const [pins, setPins] = useState<FeedItem[]>(Array.from({ length: 15 }).map((_, i) => ({
+    const [pins] = useState<FeedItem[]>(() => Array.from({ length: 15 }).map((_, i) => ({
         id: i + 1,
         title: `ایده استایل ${i + 1}`,
         imageUrl: MOCK_IMAGES[i % MOCK_IMAGES.length],
-        // اضافه کردن اطلاعات کاربر برای سازگاری با تایپ FeedItem
         user: {
             name: `کاربر ${i + 1}`,
             avatar: MOCK_IMAGES[(i + 2) % MOCK_IMAGES.length]
         },
+        // استفاده از random داخل تابع initializer مجاز است (فقط یکبار اجرا می‌شود)
         likes: Math.floor(Math.random() * 500) + 10
     })));
 

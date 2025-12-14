@@ -27,9 +27,12 @@ export default function LoginPage() {
 
     useEffect(() => {
         if (step === "PHONE" && state?.success && state.phoneNumber) {
-            setStep("OTP");
-            setTimer(TIMER_DURATION);
-            setClientError("");
+            const timeout = setTimeout(() => {
+                setStep("OTP");
+                setTimer(TIMER_DURATION);
+                setClientError("");
+            }, 0);
+            return () => clearTimeout(timeout);
         }
     }, [state, step]);
 

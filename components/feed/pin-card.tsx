@@ -1,12 +1,13 @@
 import { FeedItem } from "@/types/feed";
 import { Heart, Download } from "lucide-react";
+import Image from "next/image";
 
 export function PinCard({ data }: { data: FeedItem }) {
     return (
         <div className="group relative rounded-[16px] overflow-hidden cursor-zoom-in bg-gray-100 dark:bg-gray-800">
             {/* تصویر اصلی */}
             <div className="relative w-full">
-                <img
+                <Image
                     src={data.imageUrl}
                     alt={data.title || "Pin image"}
                     className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
@@ -45,7 +46,7 @@ export function PinCard({ data }: { data: FeedItem }) {
                 {data.user && (
                     <div className="flex items-center gap-2 justify-end md:justify-start">
                         {data.user.avatar && (
-                            <img
+                            <Image
                                 src={data.user.avatar}
                                 alt={data.user.name}
                                 className="w-6 h-6 rounded-full object-cover border border-white/50"

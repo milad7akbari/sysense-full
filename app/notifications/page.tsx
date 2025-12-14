@@ -46,7 +46,6 @@ const initialNotifications = [
         color: 'text-purple-500 bg-purple-50',
     },
 ];
-
 export default function NotificationsPage() {
     const [notifications, setNotifications] = useState(initialNotifications);
     const [filter, setFilter] = useState<'all' | 'unread'>('all');

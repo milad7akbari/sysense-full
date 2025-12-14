@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+// Comprehensive User Model
+model User {
+  id              Int       @id @default(autoincrement())
+  phoneNumber     String    @unique // Primary login identifier (Required)
+  email           String?   @unique
+  firstName       String?
+  lastName        String?
+  gender          String?   // User's gender (e.g., 'male', 'female', 'other')
+  dateOfBirth     DateTime? // User's date of birth (for style suggestions by age)
+  bio             String?
+
+  // Timestamps
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  // Relationships
+  boards          Board[]
+}
+
+// Dedicated table for tracking OTP requests (renamed for clarity and includes 'used' field)
+model OtpRequests {
+  id              Int      @id @default(autoincrement())
+  phoneNumber     String   @unique // The phone number the code belongs to
+  code            String   // The 5-digit OTP code
+  used            Boolean  @default(false) // New field to prevent replay attacks
+  expiresAt       DateTime // Time when the OTP becomes invalid
+
+  createdAt       DateTime @default(now())
+}
+
+
+// Board Model (for future use)
+model Board {
+  id           Int      @id @default(autoincrement())
+  title        String
+  isPrivate    Boolean  @default(false)
+
+  // Foreign Key to User
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id])
+}
