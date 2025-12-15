@@ -59,9 +59,6 @@ export function Header() {
         <header className="z-50 w-full bg-white/95 backdrop-blur-md border-b border-zinc-100 font-sans transition-all duration-300 relative">
             <div className="flex h-20 items-center justify-between px-4 md:px-8 gap-4 max-w-[1920px] mx-auto relative">
 
-                {/* =========================================
-                    بخش مخصوص جستجو در موبایل (Overlay)
-                   ========================================= */}
                 <div
                     className={`absolute inset-0 z-[60] bg-white flex items-center px-4 gap-3 transition-all duration-300 ease-in-out md:hidden ${
                         isMobileSearchOpen

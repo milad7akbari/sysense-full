@@ -47,10 +47,8 @@ export default function HomePage() {
     return (
         <div className="min-h-screen bg-[#fafafa] font-sans pb-20">
 
-            {/* --- هدر کنترل پنل هوش مصنوعی --- */}
                 <div className="max-w-[1600px] mx-auto">
 
-                    {/* ردیف بالا: خوش‌آمدگویی و ابزارها */}
                     <div className="flex flex-col md:flex-row items-center justify-between p-4 md:px-8 gap-4">
                         <div className="flex items-center gap-4 w-full md:w-auto">
                             <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-violet-600 to-fuchsia-600 flex items-center justify-center text-white shadow-lg shadow-violet-200 shrink-0">
@@ -68,7 +66,6 @@ export default function HomePage() {
                             </div>
                         </div>
 
-                        {/* دکمه‌های کنترل */}
                         <div className="flex items-center gap-2 w-full md:w-auto">
                             <button
                                 onClick={() => setIsTuningOpen(!isTuningOpen)}
@@ -87,11 +84,9 @@ export default function HomePage() {
                         </div>
                     </div>
 
-                    {/* ردیف پایین: تنظیمات پیشرفته (بازشو) */}
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isTuningOpen ? 'max-h-48 opacity-100 border-t border-slate-100' : 'max-h-0 opacity-0'}`}>
                         <div className="p-4 md:px-8 bg-slate-50/50 flex flex-col md:flex-row gap-8 items-start">
 
-                            {/* انتخاب مود */}
                             <div className="space-y-3 w-full md:w-auto">
                                 <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">مود استایل امروز</span>
                                 <div className="flex flex-wrap gap-2">
@@ -107,7 +102,6 @@ export default function HomePage() {
                                 </div>
                             </div>
 
-                            {/* فیلترهای هوشمند */}
                             <div className="space-y-3 flex-1">
                                 <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">تمرکز هوش مصنوعی</span>
                                 <div className="flex items-center gap-4 text-sm text-slate-700 bg-white p-3 rounded-xl border border-slate-200 max-w-lg">
@@ -132,10 +126,8 @@ export default function HomePage() {
                     </div>
                 </div>
 
-            {/* --- محتوای اصلی --- */}
             <main className="max-w-[1600px] mx-auto px-4 md:px-6 py-8 relative">
 
-                {/* پیام شفافیت عملکرد (Context Bubble) */}
                 <div className="flex justify-center mb-10">
                     <div className="inline-flex items-center gap-3 bg-white px-5 py-3 rounded-full shadow-sm border border-slate-200/60 animate-in slide-in-from-top-4 duration-700">
                         <MessageSquareQuote className="w-5 h-5 text-violet-500" />
@@ -146,7 +138,6 @@ export default function HomePage() {
                 </div>
 
                 {isGenerating ? (
-                    // لودینگ پیشرفته
                     <div className="flex flex-col items-center justify-center py-20 text-center">
                         <div className="relative w-24 h-24 mb-6">
                             <div className="absolute inset-0 rounded-full border-4 border-slate-100"></div>
@@ -157,19 +148,12 @@ export default function HomePage() {
                         <p className="text-slate-500 text-sm">بررسی ۳۰۰۰+ آیتم جدید</p>
                     </div>
                 ) : (
-                    // گرید
                     <div className="animate-in fade-in zoom-in-95 duration-700">
-                        {/* ترفند برای نمایش درصد تطابق روی گرید استاندارد:
-                            چون MasonryGrid کامپوننت داخلی است، ما یک لایه راهنما بالای آن می‌گذاریم
-                            یا در نسخه واقعی باید پراپ children قبول کند.
-                            در اینجا فرض می‌کنیم گرید همان استایل استاندارد را دارد.
-                        */}
                         <MasonryGrid items={MOCK_PINS} />
                     </div>
                 )}
             </main>
 
-            {/* --- دکمه شناور بازخورد --- */}
             <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-3">
                 <div className="bg-slate-900 text-white text-xs font-bold py-1 px-3 rounded-lg shadow-lg mb-1 animate-bounce">
                     این لیست چطور بود؟
