@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  postgres_sy:
+    image: postgres:latest
+    container_name: postgres_sy
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5430:5432"
+    volumes:
+      - postgres_data_sy:/var/lib/postgresql/data
+
+  postgres_sy_dig:
+    image: postgres:latest
+    container_name: postgres_sy_dig
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5429:5432"
+    volumes:
+      - postgres_data_dig:/var/lib/postgresql/data
+
+volumes:
+  postgres_data_sy:
+  postgres_data_dig:
+  redis_data:

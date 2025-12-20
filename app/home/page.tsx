@@ -1,173 +1,149 @@
 'use client'
 
-import { useState } from "react";
-import {
-    SlidersHorizontal,
-    RefreshCcw,
-    Brain,
-    X,
-    Check,
-    ThumbsUp,
-    MessageSquareQuote
-} from "lucide-react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { MasonryGrid } from "@/components/feed/masonry-grid";
 import { FeedItem } from "@/types/feed";
+import { getProductsAction } from "@/server/actions/product-actions";
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Loader2 } from "lucide-react";
 
-// --- تصاویر نمونه ---
-const MOCK_IMAGES = [
-    "/fashion-9464875_1920.jpg", "/1.jpeg", "/woman-3083453_1280.jpg",
-    "/woman-9554464_1920.jpg", "/balancing-1868051_1920.jpg",
-    "/portrait-young-happy-woman-studio.jpg", "/man-9182458_1280.jpg",
-    "/woman-8839452_1920.jpg", "/attractive-stylish-blonde-woman-jeans-oversize-jacket-walking-against-wall-street.jpg",
-    "/woman-716592_1280.jpg"
-];
-
-// تولید داده‌های ساختگی
-const MOCK_PINS: FeedItem[] = Array.from({ length: 15 }).map((_, i) => ({
-    id: i + 1,
-    title: `استایل پیشنهادی ${i + 1}`,
-    imageUrl: MOCK_IMAGES[i % MOCK_IMAGES.length],
-    user: {
-        name: `AI Stylist`,
-        avatar: "/vercel.svg" // آواتار هوش مصنوعی
-    },
-    likes: Math.floor(Math.random() * 90) + 85 // لایک‌های بالا برای نشان دادن دقت
-}));
+const PAGE_SIZE = 20;
+const INFINITE_LIMIT = 10; // محدودیت ۱۰ بار اسکرول
 
 export default function HomePage() {
-    const [isTuningOpen, setIsTuningOpen] = useState(false);
-    const [mood, setMood] = useState("امروز");
-    const [isGenerating, setIsGenerating] = useState(false);
+    const [pins, setPins] = useState<FeedItem[]>([]);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+    const [loading, setLoading] = useState(false);
+    const [scrollCount, setScrollCount] = useState(0);
+    const [isInfiniteMode, setIsInfiniteMode] = useState(true);
 
-    const handleRegenerate = () => {
-        setIsGenerating(true);
-        setTimeout(() => setIsGenerating(false), 2500);
+    const observerTarget = useRef(null);
+
+    const loadData = useCallback(async (targetPage: number, append: boolean = true) => {
+        setLoading(true);
+        const { items, totalPages: total } = await getProductsAction(targetPage, PAGE_SIZE);
+
+        setTotalPages(total);
+        if (append) {
+            setPins(prev => [...prev, ...items]);
+        } else {
+            setPins(items);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        setLoading(false);
+    }, []);
+
+    useEffect(() => {
+        loadData(1);
+    }, [loadData]);
+
+    useEffect(() => {
+        if (!isInfiniteMode || loading) return;
+
+        const observer = new IntersectionObserver(
+            entries => {
+                if (entries[0].isIntersecting && scrollCount < INFINITE_LIMIT) {
+                    const nextPage = page + 1;
+                    setPage(nextPage);
+                    setScrollCount(prev => prev + 1);
+                    loadData(nextPage, true);
+
+                    if (scrollCount + 1 >= INFINITE_LIMIT) {
+                        setIsInfiniteMode(false);
+                    }
+                }
+            },
+            { threshold: 1.0 }
+        );
+
+        if (observerTarget.current) {
+            observer.observe(observerTarget.current);
+        }
+
+        return () => observer.disconnect();
+    }, [isInfiniteMode, loading, page, scrollCount, loadData]);
+
+    const handlePageChange = (newPage: number) => {
+        if (newPage >= 1 && newPage <= totalPages) {
+            setPage(newPage);
+            loadData(newPage, false);
+        }
     };
 
     return (
-        <div className="min-h-screen bg-[#fafafa] font-sans pb-20">
+        <div className="min-h-screen bg-[#fafafa] pb-20">
+            <main className="max-w-[1600px] mx-auto px-4 py-8">
 
-                <div className="max-w-[1600px] mx-auto">
+                <MasonryGrid items={pins} />
 
-                    <div className="flex flex-col md:flex-row items-center justify-between p-4 md:px-8 gap-4">
-                        <div className="flex items-center gap-4 w-full md:w-auto">
-                            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-violet-600 to-fuchsia-600 flex items-center justify-center text-white shadow-lg shadow-violet-200 shrink-0">
-                                <Brain className="w-6 h-6" />
-                            </div>
-                            <div>
-                                <h1 className="text-lg font-extrabold text-slate-900 flex items-center gap-2">
-                                    دستیار هوشمند
-                                    <span className="flex h-2 w-2 relative">
-                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                                    </span>
-                                </h1>
-                                <p className="text-xs text-slate-500 font-medium">آماده‌سازی شده بر اساس فعالیت‌های ۲۴ ساعت گذشته</p>
-                            </div>
+                {isInfiniteMode && (
+                    <div ref={observerTarget} className="h-20 flex items-center justify-center mt-10">
+                        {loading && <Loader2 className="w-8 h-8 animate-spin text-violet-600" />}
+                    </div>
+                )}
+
+                {!isInfiniteMode && !loading && (
+                    <div className="mt-20 flex flex-col items-center gap-6 animate-in fade-in slide-in-from-bottom-4">
+                        <div className="text-sm font-medium text-slate-500">
+                            صفحه <span className="text-slate-900">{page}</span> از {totalPages}
                         </div>
 
-                        <div className="flex items-center gap-2 w-full md:w-auto">
-                            <button
-                                onClick={() => setIsTuningOpen(!isTuningOpen)}
-                                className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-bold transition-all ${isTuningOpen ? 'bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'}`}
-                            >
-                                <SlidersHorizontal className="w-4 h-4" />
-                                تنظیم دقیق
-                            </button>
-                            <button
-                                onClick={handleRegenerate}
-                                className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-violet-50 text-violet-700 font-bold text-sm hover:bg-violet-100 transition-colors"
-                            >
-                                <RefreshCcw className={`w-4 h-4 ${isGenerating ? 'animate-spin' : ''}`} />
-                                {isGenerating ? 'در حال ساخت...' : 'پیشنهاد جدید'}
-                            </button>
-                        </div>
-                    </div>
+                        <div className="flex items-center gap-2">
+                            <PaginationButton
+                                onClick={() => handlePageChange(1)}
+                                disabled={page === 1}
+                                icon={<ChevronsRight className="w-4 h-4" />}
+                            />
 
-                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isTuningOpen ? 'max-h-48 opacity-100 border-t border-slate-100' : 'max-h-0 opacity-0'}`}>
-                        <div className="p-4 md:px-8 bg-slate-50/50 flex flex-col md:flex-row gap-8 items-start">
+                            <PaginationButton
+                                onClick={() => handlePageChange(page - 1)}
+                                disabled={page === 1}
+                                icon={<ChevronRight className="w-4 h-4" />}
+                            />
 
-                            <div className="space-y-3 w-full md:w-auto">
-                                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">مود استایل امروز</span>
-                                <div className="flex flex-wrap gap-2">
-                                    {['رسمی و اداری', 'کژوال راحت', 'جسورانه', 'مینیمال'].map((item) => (
-                                        <button
-                                            key={item}
-                                            onClick={() => setMood(item)}
-                                            className={`px-4 py-1.5 rounded-full text-xs font-bold border transition-all ${mood === item ? 'bg-slate-900 text-white border-slate-900 shadow-md' : 'bg-white text-slate-600 border-slate-200 hover:border-slate-300'}`}
-                                        >
-                                            {item}
-                                        </button>
-                                    ))}
-                                </div>
+                            <div className="flex items-center gap-1 mx-2">
+                                {page > 1 && (
+                                    <button onClick={() => handlePageChange(page - 1)} className="w-10 h-10 rounded-xl text-sm font-bold hover:bg-slate-100">
+                                        {page - 1}
+                                    </button>
+                                )}
+                                <button className="w-12 h-12 rounded-xl bg-violet-600 text-white text-sm font-bold shadow-lg shadow-violet-200">
+                                    {page}
+                                </button>
+                                {page < totalPages && (
+                                    <button onClick={() => handlePageChange(page + 1)} className="w-10 h-10 rounded-xl text-sm font-bold hover:bg-slate-100">
+                                        {page + 1}
+                                    </button>
+                                )}
                             </div>
 
-                            <div className="space-y-3 flex-1">
-                                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">تمرکز هوش مصنوعی</span>
-                                <div className="flex items-center gap-4 text-sm text-slate-700 bg-white p-3 rounded-xl border border-slate-200 max-w-lg">
-                                    <div className="flex items-center gap-2">
-                                        <Check className="w-4 h-4 text-emerald-500" />
-                                        <span>رنگ‌های روشن</span>
-                                    </div>
-                                    <div className="w-px h-4 bg-slate-200"></div>
-                                    <div className="flex items-center gap-2">
-                                        <Check className="w-4 h-4 text-emerald-500" />
-                                        <span>پارچه‌های نخی</span>
-                                    </div>
-                                    <div className="w-px h-4 bg-slate-200"></div>
-                                    <div className="flex items-center gap-2">
-                                        <Check className="w-4 h-4 text-emerald-500" />
-                                        <span>قیمت متوسط</span>
-                                    </div>
-                                </div>
-                            </div>
+                            <PaginationButton
+                                onClick={() => handlePageChange(page + 1)}
+                                disabled={page === totalPages}
+                                icon={<ChevronLeft className="w-4 h-4" />}
+                            />
 
+                            <PaginationButton
+                                onClick={() => handlePageChange(totalPages)}
+                                disabled={page === totalPages}
+                                icon={<ChevronsLeft className="w-4 h-4" />}
+                            />
                         </div>
-                    </div>
-                </div>
-
-            <main className="max-w-[1600px] mx-auto px-4 md:px-6 py-8 relative">
-
-                <div className="flex justify-center mb-10">
-                    <div className="inline-flex items-center gap-3 bg-white px-5 py-3 rounded-full shadow-sm border border-slate-200/60 animate-in slide-in-from-top-4 duration-700">
-                        <MessageSquareQuote className="w-5 h-5 text-violet-500" />
-                        <p className="text-sm text-slate-600">
-                            <span className="font-bold text-slate-800">چرا این‌ها؟</span> چون دیشب کالکشن «تابستانه زارا» را ذخیره کردید.
-                        </p>
-                    </div>
-                </div>
-
-                {isGenerating ? (
-                    <div className="flex flex-col items-center justify-center py-20 text-center">
-                        <div className="relative w-24 h-24 mb-6">
-                            <div className="absolute inset-0 rounded-full border-4 border-slate-100"></div>
-                            <div className="absolute inset-0 rounded-full border-4 border-violet-600 border-t-transparent animate-spin"></div>
-                            <Brain className="absolute inset-0 m-auto w-8 h-8 text-violet-600 animate-pulse" />
-                        </div>
-                        <h3 className="text-xl font-bold text-slate-800 mb-2">در حال آنالیز سلیقه شما...</h3>
-                        <p className="text-slate-500 text-sm">بررسی ۳۰۰۰+ آیتم جدید</p>
-                    </div>
-                ) : (
-                    <div className="animate-in fade-in zoom-in-95 duration-700">
-                        <MasonryGrid items={MOCK_PINS} />
                     </div>
                 )}
             </main>
-
-            <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-3">
-                <div className="bg-slate-900 text-white text-xs font-bold py-1 px-3 rounded-lg shadow-lg mb-1 animate-bounce">
-                    این لیست چطور بود؟
-                </div>
-                <div className="flex gap-2">
-                    <button className="w-12 h-12 rounded-full bg-white text-slate-400 hover:text-red-500 hover:bg-red-50 shadow-lg border border-slate-100 flex items-center justify-center transition-all hover:scale-110">
-                        <X className="w-6 h-6" />
-                    </button>
-                    <button className="w-12 h-12 rounded-full bg-violet-600 text-white shadow-lg shadow-violet-200 flex items-center justify-center transition-all hover:scale-110 hover:bg-violet-700">
-                        <ThumbsUp className="w-6 h-6" />
-                    </button>
-                </div>
-            </div>
-
         </div>
+    );
+}
+
+function PaginationButton({ onClick, disabled, icon }: { onClick: () => void, disabled: boolean, icon: React.ReactNode }) {
+    return (
+        <button
+            onClick={onClick}
+            disabled={disabled}
+            className="w-10 h-10 flex items-center justify-center rounded-xl border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+        >
+            {icon}
+        </button>
     );
 }

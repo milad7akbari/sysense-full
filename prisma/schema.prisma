@@ -5,6 +5,75 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  title       String?
+  description String?
+  imageUrl    String
+
+  width       Int      @default(0)
+  height      Int      @default(0)
+
+  categories   Category[]     @relation("ProductCategories")
+
+  images       ProductImage[]
+
+  brandId      Int?
+  brand        Brand?         @relation(fields: [brandId], references: [id])
+
+  boardId     Int?
+  board       Board?   @relation(fields: [boardId], references: [id])
+
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+
+  likes       Like[]
+  likesCount  Int      @default(0)
+
+  active       Boolean        @default(true)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ProductImage {
+  id        Int     @id @default(autoincrement())
+  url       String
+  productId Int
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+
+  productId Int
+  product   Product  @relation(fields: [productId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, productId])
+}
+
+model Brand {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  products Product[]
+}
+
+model Category {
+  id        Int        @id @default(autoincrement())
+  name      String
+  parentId  Int?
+  parent    Category?  @relation("SubCategories", fields: [parentId], references: [id])
+  children  Category[] @relation("SubCategories")
+
+  products  Product[]  @relation("ProductCategories")
+}
+
 // Comprehensive User Model
 model User {
   id              Int       @id @default(autoincrement())
@@ -15,6 +84,7 @@ model User {
   gender          String?   // User's gender (e.g., 'male', 'female', 'other')
   dateOfBirth     DateTime? // User's date of birth (for style suggestions by age)
   bio             String?
+  avatar          String?
 
   // Timestamps
   createdAt       DateTime  @default(now())
@@ -22,6 +92,8 @@ model User {
 
   // Relationships
   boards          Board[]
+  products        Product[]
+  likes           Like[]
 }
 
 // Dedicated table for tracking OTP requests (renamed for clarity and includes 'used' field)
@@ -45,4 +117,5 @@ model Board {
   // Foreign Key to User
   userId       Int
   user         User     @relation(fields: [userId], references: [id])
+  products     Product[]
 }
